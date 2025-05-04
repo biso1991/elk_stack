@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Facebook Login Test</title>
 </head>
 <body>
-  <h1> a7la housem  </h1>
+  <h1>🌟 أهلا وسهلا بيك 🌟</h1>
 
   <!-- Facebook Login Button -->
-  <fb:login-button 
-    scope="public_profile,email" 
+  <div class="fb-login-button"
+    data-width=""
+    data-size="large"
+    data-button-type="continue_with"
+    data-layout="default"
+    data-auto-logout-link="false"
+    data-use-continue-as="false"
+    data-scope="public_profile,email"
     onlogin="checkLoginState();">
-  </fb:login-button>
+  </div>
 
   <!-- Output user info -->
   <div id="user-info" style="margin-top: 20px;"></div>
 
   <!-- Facebook SDK -->
+  <div id="fb-root"></div>
   <script>
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : '1024791192558200', 
-        cookie     : true,
+        appId      : '1024791192558200',  
         xfbml      : true,
-        version    : 'v19.0'
+        version    : 'v22.0'
       });
-
-      FB.AppEvents.logPageView();
 
       FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
@@ -34,20 +39,18 @@
     };
 
     (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) return;
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
-    
     function checkLoginState() {
       FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
       });
     }
-
 
     function statusChangeCallback(response) {
       if (response.status === 'connected') {
@@ -55,13 +58,13 @@
           document.getElementById('user-info').innerHTML = `
             <p>👤 مرحبًا ${userData.name}</p>
             <p>📧 ${userData.email}</p>
-            <img src="${userData.picture.data.url}" alt="Profile Picture">
+            <img src="${userData.picture.data.url}" alt="Profile Picture" style="border-radius:50%; width:100px;">
           `;
           console.log("User Data:", userData);
         });
       } else {
-        document.getElementById('user-info').innerHTML = `<p> welcome Facebook</p>`;
-        console.log("Not logged in or not authorized.");
+        document.getElementById('user-info').innerHTML = `<p> please login .</p>`;
+        console.log("User not logged in or not authorized.");
       }
     }
   </script>
